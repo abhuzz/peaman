@@ -1,0 +1,27 @@
+name: peaman
+description: A service for building social media applications with ease!
+version: 0.0.2
+homepage: https://peaman.web.app
+repository: https://github.com/shrijanRegmi/peaman
+issue_tracker: https://github.com/shrijanRegmi/peaman/issues
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  cloud_firestore: ^3.1.12
+  device_info: ^2.0.3
+  firebase_auth: ^3.3.14
+  firebase_core: ^1.14.1
+  firebase_messaging: ^11.2.13
+  firebase_storage: ^10.2.12
+  flutter:
+    sdk: flutter
+  google_sign_in: ^5.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter: null
