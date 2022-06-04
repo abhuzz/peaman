@@ -100,7 +100,7 @@ class FirebaseMessagingProvider {
               iOS: platformChannelSpecificsIos);
 
           flutterLocalNotificationsPlugin.show(
-              notification.hashCode,
+              1,
               notification.title,
               notification.body,
               platformChannelSpecifics,
@@ -195,7 +195,7 @@ class FirebaseMessagingProvider {
               iOS: platformChannelSpecificsIos);
 
           flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
+            1,
             notification.title,
             notification.body,
             platformChannelSpecifics,
