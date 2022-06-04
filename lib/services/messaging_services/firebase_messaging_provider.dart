@@ -104,7 +104,6 @@ class FirebaseMessagingProvider {
               notification.title,
               notification.body,
               platformChannelSpecifics,
-              payload: json.encode(message),
           );
         }
       });
@@ -200,7 +199,6 @@ class FirebaseMessagingProvider {
             notification.title,
             notification.body,
             platformChannelSpecifics,
-            payload: json.encode(message),
           );
         }
       });
