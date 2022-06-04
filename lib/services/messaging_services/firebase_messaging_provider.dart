@@ -19,7 +19,8 @@ class FirebaseMessagingProvider {
     required final String uid,
   }) async {
     await FirebaseMessaging.instance.setAutoInitEnabled(true);
-
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
     try {
       final _deviceInfo = DeviceInfoPlugin();
       String? _docId;
@@ -46,67 +47,67 @@ class FirebaseMessagingProvider {
         _platForm = 'ios';
       }
 
-      // FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      //   print("onmessage.listen ontap");
-      //
-      //   RemoteNotification? notification = message.notification;
-      //   // AndroidNotification? android = message.notification?.android;
-      //   AppleNotification? appleNot = message.notification?.apple;
-      //   avatar = appleNot!.imageUrl;
-      //
-      //   print(message.data);
-      //   print("getinitiaonMessage.listen ontap");
-      //
-      //   if (Platform.isAndroid) {
-      //
-      //   } else if (Platform.isIOS) {
-      //     if (avatar != null && avatar!.isNotEmpty) {
-      //       final extension = p.extension(avatar!);
-      //       final picturePath = await saveImage(Image.network(avatar!),extension);
-      //       newattachments.add(IOSNotificationAttachment('${picturePath}'));
-      //     }
-      //   }
-      //
-      //   if (notification != null) {
-      //     print("message from ${message.notification!.body}");
-      //     print("message from ${message.notification!.title}");
-      //     print("message from ${message.data}");
-      //
-      //     var platformChannelSpecificsAndroid = new AndroidNotificationDetails(
-      //         'your_channel_id', 'your channel name',
-      //         channelDescription: 'your channel description',
-      //         icon: 'logo_blue',
-      //         color: Colors.indigo,
-      //         playSound: false,
-      //         enableVibration: false,
-      //         importance: Importance.high,
-      //         styleInformation: avatar != null && avatar!.isNotEmpty
-      //             ? bigPictureStyleInformation
-      //             : null,
-      //         largeIcon: avatar != null && avatar!.isNotEmpty ? file : null,
-      //         priority: Priority.high);
-      //
-      //     // @formatter:on
-      //     var platformChannelSpecificsIos =
-      //     new IOSNotificationDetails(
-      //         presentSound: true,
-      //         presentAlert: true,
-      //         presentBadge: true,
-      //         attachments: newattachments
-      //     );
-      //     var platformChannelSpecifics = new NotificationDetails(
-      //         android: platformChannelSpecificsAndroid,
-      //         iOS: platformChannelSpecificsIos);
-      //
-      //     flutterLocalNotificationsPlugin.show(
-      //         notification.hashCode,
-      //         notification.title,
-      //         notification.body,
-      //         platformChannelSpecifics,
-      //         payload: json.encode(message),
-      //     );
-      //   }
-      // });
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+        print("onmessage.listen ontap");
+
+        RemoteNotification? notification = message.notification;
+        // AndroidNotification? android = message.notification?.android;
+        AppleNotification? appleNot = message.notification?.apple;
+        avatar = appleNot!.imageUrl;
+
+        print(message.data);
+        print("getinitiaonMessage.listen ontap");
+
+        if (Platform.isAndroid) {
+
+        } else if (Platform.isIOS) {
+          if (avatar != null && avatar!.isNotEmpty) {
+            final extension = p.extension(avatar!);
+            final picturePath = await saveImage(Image.network(avatar!),extension);
+            newattachments.add(IOSNotificationAttachment('${picturePath}'));
+          }
+        }
+
+        if (notification != null) {
+          print("message from ${message.notification!.body}");
+          print("message from ${message.notification!.title}");
+          print("message from ${message.data}");
+
+          var platformChannelSpecificsAndroid = new AndroidNotificationDetails(
+              'your_channel_id', 'your channel name',
+              channelDescription: 'your channel description',
+              icon: 'logo_blue',
+              color: Colors.indigo,
+              playSound: false,
+              enableVibration: false,
+              importance: Importance.high,
+              styleInformation: avatar != null && avatar!.isNotEmpty
+                  ? bigPictureStyleInformation
+                  : null,
+              largeIcon: avatar != null && avatar!.isNotEmpty ? file : null,
+              priority: Priority.high);
+
+          // @formatter:on
+          var platformChannelSpecificsIos =
+          new IOSNotificationDetails(
+              presentSound: true,
+              presentAlert: true,
+              presentBadge: true,
+              attachments: newattachments
+          );
+          var platformChannelSpecifics = new NotificationDetails(
+              android: platformChannelSpecificsAndroid,
+              iOS: platformChannelSpecificsIos);
+
+          flutterLocalNotificationsPlugin.show(
+              notification.hashCode,
+              notification.title,
+              notification.body,
+              platformChannelSpecifics,
+              payload: json.encode(message),
+          );
+        }
+      });
 
       final _token = await _firebaseMessaging.getToken();
       final _deviceRef = PeamanReferenceHelper.devicesCol(uid: uid).doc(_docId);
