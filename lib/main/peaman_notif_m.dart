@@ -17,6 +17,8 @@ class PNotificationProvider {
     return FirebaseMessagingProvider.reset(uid: uid);
   }
 
+
+
   static Future<void> onReceivedPushNotification({
     required final Future<void> Function(RemoteMessage) onPushNotification,
   }) {

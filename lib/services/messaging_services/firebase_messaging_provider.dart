@@ -11,6 +11,7 @@ class FirebaseMessagingProvider {
   static Future<void> initialize({
     required final String uid,
   }) async {
+    await FirebaseMessaging.instance.setAutoInitEnabled(true);
     try {
       final _deviceInfo = DeviceInfoPlugin();
       String? _docId;
