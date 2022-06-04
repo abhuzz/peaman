@@ -49,6 +49,26 @@ class FirebaseMessagingProvider {
     }
   }
 
+  // on listen message from firebase messaging service
+  static Future<void> onlistenMessage({
+    required final Future<void> Function(RemoteMessage) onMessage,
+  }) async {
+    try {
+      final _initialMessage =
+      await FirebaseMessaging.instance.getInitialMessage();
+
+      if (_initialMessage != null) {
+        onMessage(_initialMessage);
+      }
+
+      FirebaseMessaging.onMessage.listen(onMessage);
+    } catch (e) {
+      print(e);
+      print('Error!!!: Receiving message from notification');
+    }
+  }
+
+
   // on recieved messages from firebase messaging service
   static Future<void> onReceivedMessage({
     required final Future<void> Function(RemoteMessage) onMessage,
