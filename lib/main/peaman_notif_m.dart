@@ -19,11 +19,11 @@ class PNotificationProvider {
 
 
   static Future<void> onListenPushNotification({
-    required final RemoteMessage onPushNotification,
+    // required final RemoteMessage onPushNotification,
     required final Future<void> Function(RemoteMessage) onPushfunction,
   }) {
     return FirebaseMessagingProvider.onlistenMessage(
-       onPushNotification: onPushNotification, onMessage: onPushfunction,
+        onMessage: onPushfunction,
     );
   }
 
