@@ -45,6 +45,14 @@ class FirebaseMessagingProvider {
       });
 
       print('Success: Initializing firebase messaging');
+      FirebaseMessaging.onMessage.listen((RemoteMessage? event) {
+        print("message recieved");
+        print(event!.notification!.body);
+        onlistenMessage(onPushNotification: event);
+      });
+
+      // FirebaseMessaging.onBackgroundMessage(backgroundMessageHandler);
+
     } catch (e) {
       print(e);
       print('Error!!!: Initializing firebase messaging');
@@ -53,23 +61,21 @@ class FirebaseMessagingProvider {
 
   // on listen message from firebase messaging service
   static Future<void> onlistenMessage({
-    required final Future<void> Function(RemoteMessage) onMessage,
+    required final RemoteMessage onPushNotification,
   }) async {
     try {
-      final _initialMessage =
-      await FirebaseMessaging.instance.getInitialMessage();
-
-      if (_initialMessage != null) {
-        onMessage(_initialMessage);
-      }
-
-      FirebaseMessaging.onMessage.listen(onMessage);
+      onPushNotification;
+      print('Success: get firebase messaging $onPushNotification');
     } catch (e) {
       print(e);
       print('Error!!!: Receiving message from notification');
     }
   }
 
+  // Future<void> backgroundMessageHandler(RemoteMessage message) async {
+  //   print("FirebaseMessaging Handling a background message");
+  //   NotificationHandler.myBackgroundMessageHandler(message.data);
+  // }
 
   // on recieved messages from firebase messaging service
   static Future<void> onReceivedMessage({
